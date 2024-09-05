@@ -27,3 +27,65 @@ class Program
 
 IMPORTANTE: Esse número pode ser informado através de qualquer entrada de sua preferência ou pode ser previamente definido no código;
 
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Digite um numero: ");
+        if (int.TryParse(Console.ReadLine(), out int numero))
+        {
+            if (fibonacci(numero, out int fib1, out int fib2))
+            {
+                Console.WriteLine($"{numero} faz parte da sequência de Fibonacci.");
+                Console.WriteLine($"Os dois números da sequência de Fibonacci que somam {numero} são {fib1} e {fib2}.");
+            }
+            else
+            {
+                Console.WriteLine($"{numero} não faz parte da sequência de Fibonacci!");
+            }
+        }
+    }
+
+    static bool fibonacci(int n, out int fib1, out int fib2)
+    {
+        fib1 = 0;
+        fib2 = 1;
+        
+        if (n == 0)
+        {
+            fib1 = 0;
+            fib2 = 0;
+            return true;
+        }
+        if (n == 1)
+        {
+            fib1 = 1;
+            fib2 = 0;
+            return true;
+        }
+
+        int a = 0;
+        int b = 1;
+
+        while (b <= n)
+        {
+            int next = a + b;
+            if (next == n)
+            {
+                fib1 = a;
+                fib2 = b;
+                return true;
+            }
+
+            a = b;
+            b = next;
+        }
+
+        return false;
+    }
+}
+
+
+
