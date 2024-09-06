@@ -99,8 +99,28 @@ IMPORTANTE:
 a) Usar o json ou xml disponível como fonte dos dados do faturamento mensal;
 b) Podem existir dias sem faturamento, como nos finais de semana e feriados. Estes dias devem ser ignorados no cálculo da média;
 
+RESPOSTA: PYTHON
 
+import json
+with open("dados.json", "r") as f:
+    data = json.load(f)
 
+valores = [dia['valor'] for dia in data 
+           if dia['valor'] > 0]
+# menor valor do mes
+menor = min(valores)
+# maior valor do mes
+maior = max(valores)
+
+media = sum(valores) / len(valores)
+
+# maior que a media
+dias_mm = sum(1 for valor in valores
+              if valor > media)
+
+print(f"menor valor de faturamento: R${menor:.2f}")
+print(f"maior valor de faturamento: R${maior:.2f}")
+print(f"nmero de dias com faturamento acima da média mensal: {dias_mm}")
 
 
 4) Dado o valor de faturamento mensal de uma distribuidora, detalhado por estado:
